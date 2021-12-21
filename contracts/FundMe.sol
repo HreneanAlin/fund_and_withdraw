@@ -13,9 +13,6 @@ contract FundMe {
     address public owner;
     AggregatorV3Interface public priceFeed;
 
-    // if you're following along with the freecodecamp video
-    // Please see https://github.com/PatrickAlphaC/fund_me
-    // to get the starting solidity contract code, it'll be slightly different than this!
     constructor(address _priceFeed) public {
         priceFeed = AggregatorV3Interface(_priceFeed);
         owner = msg.sender;
@@ -40,14 +37,13 @@ contract FundMe {
         return uint256(answer * 10**10);
     }
 
-    // 1000000000
     function getConversionRate(uint256 ethAmount)
         public
         view
         returns (uint256)
     {
         uint256 ethPrice = getPrice();
-        uint256 ethAmountInUsd = (ethPrice * ethAmount) / 1000000000000000000;
+        uint256 ethAmountInUsd = (ethPrice * ethAmount) / 10**18;
         return ethAmountInUsd;
     }
 
